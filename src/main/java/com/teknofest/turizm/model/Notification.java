@@ -1,7 +1,15 @@
 package com.teknofest.turizm.model;
 
-import com.teknofest.turizm.model.audit.AuditAll;
-import jakarta.persistence.*;
+import  com.teknofest.turizm.model.audit.AuditAll;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
 
 @Entity
 @Table(name = "notifications")
@@ -17,7 +25,7 @@ public class Notification extends AuditAll<String> {
     @ManyToOne
     @JoinColumn(name = "notification_type_id")
     private NotificationType notificationType;
-
+    @Column
     private String message;
 
     @Column(name = "is_read")

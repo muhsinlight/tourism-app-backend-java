@@ -1,7 +1,19 @@
 package com.teknofest.turizm.model;
 
 import com.teknofest.turizm.model.audit.AuditAll;
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -48,7 +60,9 @@ public class User extends AuditAll<String> implements UserDetails {
     private String email;
     @Column
     private String password;
+    @Column(name="profile_picture")
     private String profilePicture;
+    @Column
     private String bio;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
