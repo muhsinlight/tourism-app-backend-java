@@ -14,8 +14,9 @@ public class Event extends AuditAll<String> {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
+    @Column
     private String title;
+    @Column
     private String description;
 
     @ManyToOne
