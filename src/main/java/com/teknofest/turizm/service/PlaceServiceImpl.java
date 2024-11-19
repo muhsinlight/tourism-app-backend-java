@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 public class PlaceServiceImpl implements PlaceService{
 
     private final PlaceRepository placeRepository;
-
     public PlaceServiceImpl(PlaceRepository placeRepository) {
         this.placeRepository = placeRepository;
     }
@@ -17,20 +16,27 @@ public class PlaceServiceImpl implements PlaceService{
     public Place savePlace(Place place) {
     return placeRepository.save(place);
     }
-
     @Override
     public Place getPlaceById(Long id) {
-    return placeRepository.findById(id).orElseThrow(null);
+        return placeRepository.findById(id).orElseThrow(null);
     }
-
     @Override
-    public Place updatePlace(Place place) {
-        return null;
+    public Place updatePlace(Long id, Place uPlace) {
+        Place dbPlace = getPlaceById(id);
+        {
+            dbPlace.setName(uPlace.getName());
+            dbPlace.setDescription(uPlace.getDescription());
+            dbPlace.setAddress(uPlace.getAddress());
+            dbPlace.setLatitude(uPlace.getLatitude());
+            dbPlace.setLongitude(uPlace.getLongitude());
+            dbPlace.setReviews(uPlace.getReviews());
+            return placeRepository.save(dbPlace);
+        }
     }
-
     @Override
-    public void deletePlace(Place place) {
-
+    public void deletePlace(Long id) {
+    Place dbPlace = getPlaceById(id);
+    placeRepository.delete(dbPlace);
     }
 
 
