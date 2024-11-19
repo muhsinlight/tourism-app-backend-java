@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/place")
-
 public class PlaceController {
 
     private final PlaceService placeService;
@@ -32,6 +31,16 @@ public class PlaceController {
                 .build();
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+    public ResponseEntity<ApiResponse<Place>> getPlaceById(Long id) {
+        var result = placeService.getPlaceById(id);
+        var response = new ApiResponse.Builder<Place>()
+                .success(true)
+                .message("Kayıt başarılı")
+                .data(result)
+                .build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
 }
+
 
 

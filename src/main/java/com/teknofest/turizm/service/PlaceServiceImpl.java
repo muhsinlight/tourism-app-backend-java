@@ -19,7 +19,7 @@ public class PlaceServiceImpl implements PlaceService{
     }
 
     @Override
-    public Place getPlaceById(int id) {
+    public Place getPlaceById(Long id) {
     return placeRepository.findById(id).orElseThrow(null);
     }
 
@@ -29,8 +29,8 @@ public class PlaceServiceImpl implements PlaceService{
     }
 
     @Override
-    public Place deletePlace(Place place) {
-        return null;
+    public void deletePlace(Place place) {
+
     }
 
 
