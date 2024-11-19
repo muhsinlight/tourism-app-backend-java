@@ -1,9 +1,12 @@
 package com.teknofest.turizm.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
+
 
 @Entity
 public class DatabaseLog {
@@ -11,8 +14,11 @@ public class DatabaseLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column
     private String message;
+    @Column(name = "method_name")
     private String methodName;
+    @Column
     private String timestamp;
 
     public DatabaseLog(Long id, String message, String methodName, String timestamp) {
