@@ -36,8 +36,16 @@ public class PlaceServiceImpl implements PlaceService{
     @Override
     public void deletePlace(Long id) {
     Place dbPlace = getPlaceById(id);
-    placeRepository.delete(dbPlace);
+    if(dbPlace != null){
+        placeRepository.delete(dbPlace);
     }
+    throw new IllegalArgumentException("Silinecek id bulanamadı " + id);
+    }
+    public List<Place> getAllCity() {
 
+    }
+    public List<Place> findSearchwithCity(Place place) {
+
+    }
 
 }

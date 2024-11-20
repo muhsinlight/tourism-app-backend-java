@@ -40,7 +40,7 @@ public class PlaceController {
         var result = placeService.getPlaceById(id);
         var response = new ApiResponse.Builder<Place>()
                 .success(true)
-                .message("Kayıt başarılı")
+                .message("İstenilen id ile bilgiler: ")
                 .data(result)
                 .build();
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -50,7 +50,7 @@ public class PlaceController {
         var result = placeService.getPlaceById(id);
         var response = new ApiResponse.Builder<Place>()
                 .success(true)
-                .message("Kayıt başarılı")
+                .message("Veri güncellendi")
                 .data(result)
                 .build();
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -60,7 +60,7 @@ public class PlaceController {
         placeService.deletePlace(id);
         var response = new ApiResponse.Builder<Void>()
                 .success(true)
-                .message("Kayıt başarılı")
+                .message("Kayıt Silindi")
                 .build();
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(response);
     }
