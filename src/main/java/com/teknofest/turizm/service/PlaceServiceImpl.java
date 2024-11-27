@@ -4,22 +4,28 @@ import com.teknofest.turizm.model.Place;
 import com.teknofest.turizm.repository.PlaceRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
-public class PlaceServiceImpl implements PlaceService{
+public class PlaceServiceImpl implements PlaceService {
 
     private final PlaceRepository placeRepository;
+
     public PlaceServiceImpl(PlaceRepository placeRepository) {
         this.placeRepository = placeRepository;
     }
 
     @Override
     public Place savePlace(Place place) {
-    return placeRepository.save(place);
+        return placeRepository.save(place);
     }
+
     @Override
     public Place getPlaceById(Long id) {
         return placeRepository.findById(id).orElseThrow(null);
     }
+
     @Override
     public Place updatePlace(Long id, Place uPlace) {
         Place dbPlace = getPlaceById(id);
@@ -29,23 +35,23 @@ public class PlaceServiceImpl implements PlaceService{
             dbPlace.setAddress(uPlace.getAddress());
             dbPlace.setLatitude(uPlace.getLatitude());
             dbPlace.setLongitude(uPlace.getLongitude());
-            dbPlace.setReviews(uPlace.getReviews());
+
             return placeRepository.save(dbPlace);
         }
     }
+
     @Override
     public void deletePlace(Long id) {
-    Place dbPlace = getPlaceById(id);
-    if(dbPlace != null){
-        placeRepository.delete(dbPlace);
-    }
-    throw new IllegalArgumentException("Silinecek id bulanamadı " + id);
-    }
-    public List<Place> getAllCity() {
-
-    }
-    public List<Place> findSearchwithCity(Place place) {
-
+        Optional<Place> placeDb = placeRepository.findById(id);
+        if (placeDb.isPresent()) {
+            placeRepository.delete(placeDb.get());
+        } else {
+            throw new IllegalStateException("Kayıt silinmedi");
+        }
     }
 
+    @Override
+    public List<Place> searchByCityOrRegionOrAddress(String query) {
+        return placeRepository.searchByCityOrRegionOrAddress(query);
+    }
 }

@@ -1,5 +1,6 @@
 package com.teknofest.turizm.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -8,10 +9,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "place")
+@Table(name = "places")
 public class Place {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,32 +23,28 @@ public class Place {
     @Column
     private String city;
     @Column
-    private String address; // kullanıcıya tam adres gösterilebilir
+    private String address;
     @Column
     private String region; // mahalle, bölge adı, semt gibi
     @Column
     private Double latitude;
     @Column
     private Double longitude;
-    @Column(name="is_approved")
+    @Column(name = "is_approved")
     private Boolean isApproved; // default: false
     @Column
     private String type;
     @Column
     private String description;
-    @Column(name="image_url")
+    @Column(name = "image_url")
     private String imageUrl;
     @Column
     private Float rating;
-    @Column
-    @ElementCollection
-    private List<String> reviews;
+    public Place() {
+    }
 
 
-    public Place() {}
-
-
-    public Place(Long id, String name, String city, String address, String region, Double latitude, Double longitude, Boolean isApproved, String type, String description, Float rating, String imageUrl, List<String> reviews) {
+    public Place(Long id, String name, String city, String address, String region, Double latitude, Double longitude, Boolean isApproved, String type, String description, Float rating, String imageUrl) {
         this.id = id;
         this.name = name;
         this.city = city;
@@ -59,7 +57,7 @@ public class Place {
         this.description = description;
         this.rating = rating;
         this.imageUrl = imageUrl;
-        this.reviews = reviews;
+
     }
 
     // Getter and Setter methods
@@ -159,11 +157,5 @@ public class Place {
         this.rating = rating;
     }
 
-    public List<String> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(List<String> reviews) {
-        this.reviews = reviews;
-    }
 }
+
