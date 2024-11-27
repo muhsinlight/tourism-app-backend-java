@@ -1,5 +1,6 @@
 package com.teknofest.turizm.service;
 
+import com.teknofest.turizm.exception.ResourceNotFoundException;
 import com.teknofest.turizm.model.Place;
 import com.teknofest.turizm.repository.PlaceRepository;
 import org.springframework.stereotype.Service;
@@ -23,12 +24,13 @@ public class PlaceServiceImpl implements PlaceService {
 
     @Override
     public Place getPlaceById(Long id) {
-        return placeRepository.findById(id).orElseThrow(null);
+        return placeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Hata"));
     }
 
     @Override
     public Place updatePlace(Long id, Place uPlace) {
-        Place dbPlace = getPlaceById(id);
+        Place dbPlace = placeRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Böyle bir id yok"+id));
         {
             dbPlace.setName(uPlace.getName());
             dbPlace.setDescription(uPlace.getDescription());
