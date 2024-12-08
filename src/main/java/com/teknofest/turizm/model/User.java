@@ -25,22 +25,14 @@ import java.util.List;
 @Table(name = "users")
 public class User extends AuditAll<String> implements UserDetails {
 
-    public User(Long id, String firstName, String lastName, String email, String password, String profilePicture, String bio, List<Location> locations, List<Review> reviews, List<Event> events, List<Message> sentMessages, List<Message> receivedMessages, UserPreference userPreference, List<BlockedUser> blockedUsers, List<Notification> notifications, Role role) {
+    public User(Long id, String firstName, String lastName, String username, String email, String password, List<Review> reviews, Role role) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.username = username;
         this.email = email;
         this.password = password;
-        this.profilePicture = profilePicture;
-        this.bio = bio;
-        this.locations = locations;
         this.reviews = reviews;
-        this.events = events;
-        this.sentMessages = sentMessages;
-        this.receivedMessages = receivedMessages;
-        this.userPreference = userPreference;
-        this.blockedUsers = blockedUsers;
-        this.notifications = notifications;
         this.role = role;
     }
 
@@ -60,35 +52,9 @@ public class User extends AuditAll<String> implements UserDetails {
     private String email;
     @Column
     private String password;
-    @Column(name="profile_picture")
-    private String profilePicture;
-    @Column
-    private String bio;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Location> locations;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Review> reviews;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Event> events;
-
-    @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL)
-    private List<Message> sentMessages;
-
-    @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
-    private List<Message> receivedMessages;
-
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private UserPreference userPreference;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<BlockedUser> blockedUsers;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Notification> notifications;
-
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -163,84 +129,12 @@ public class User extends AuditAll<String> implements UserDetails {
         this.password = password;
     }
 
-    public String getProfilePicture() {
-        return profilePicture;
-    }
-
-    public void setProfilePicture(String profilePicture) {
-        this.profilePicture = profilePicture;
-    }
-
-    public String getBio() {
-        return bio;
-    }
-
-    public void setBio(String bio) {
-        this.bio = bio;
-    }
-
-    public List<Location> getLocations() {
-        return locations;
-    }
-
-    public void setLocations(List<Location> locations) {
-        this.locations = locations;
-    }
-
     public List<Review> getReviews() {
         return reviews;
     }
 
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
-    }
-
-    public List<Event> getEvents() {
-        return events;
-    }
-
-    public void setEvents(List<Event> events) {
-        this.events = events;
-    }
-
-    public List<Message> getSentMessages() {
-        return sentMessages;
-    }
-
-    public void setSentMessages(List<Message> sentMessages) {
-        this.sentMessages = sentMessages;
-    }
-
-    public List<Message> getReceivedMessages() {
-        return receivedMessages;
-    }
-
-    public void setReceivedMessages(List<Message> receivedMessages) {
-        this.receivedMessages = receivedMessages;
-    }
-
-    public UserPreference getUserPreference() {
-        return userPreference;
-    }
-
-    public void setUserPreference(UserPreference userPreference) {
-        this.userPreference = userPreference;
-    }
-
-    public List<BlockedUser> getBlockedUsers() {
-        return blockedUsers;
-    }
-
-    public void setBlockedUsers(List<BlockedUser> blockedUsers) {
-        this.blockedUsers = blockedUsers;
-    }
-
-    public List<Notification> getNotifications() {
-        return notifications;
-    }
-
-    public void setNotifications(List<Notification> notifications) {
-        this.notifications = notifications;
     }
 
     public Role getRole() {
