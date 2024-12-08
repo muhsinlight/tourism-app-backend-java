@@ -1,5 +1,6 @@
 package com.teknofest.turizm.service;
 
+import com.teknofest.turizm.exception.ResourceNotFoundException;
 import com.teknofest.turizm.model.User;
 import com.teknofest.turizm.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -34,13 +35,13 @@ public class UserServiceImpl implements UserService {
         if (userDb.isPresent()) {
             return userRepository.save(user);
         }
-        // TODO: code obviously exception
-        throw new IllegalStateException("Hata");
+        throw new ResourceNotFoundException("Kayıt bulunamadı.");
     }
 
     @Override
     public void delete(Long id) {
-        Optional<User> userDb = userRepository.findById(id);
-        userDb.ifPresent(user -> userRepository.deleteById(user.getId()));
+        User userDb = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Kayıt bulunamadı."));
+        userRepository.deleteById(id);
     }
 }
