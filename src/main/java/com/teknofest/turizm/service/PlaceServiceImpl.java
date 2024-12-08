@@ -24,13 +24,13 @@ public class PlaceServiceImpl implements PlaceService {
 
     @Override
     public Place getPlaceById(Long id) {
-        return placeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Hata"));
+        return placeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Kayıt bulunamadı."));
     }
 
     @Override
     public Place updatePlace(Long id, Place uPlace) {
         Place dbPlace = placeRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Böyle bir id yok"+id));
+                .orElseThrow(() -> new ResourceNotFoundException("ID:" + id + " ile eşleşen kayıt bulunamadı."));
         {
             dbPlace.setName(uPlace.getName());
             dbPlace.setDescription(uPlace.getDescription());
@@ -48,7 +48,7 @@ public class PlaceServiceImpl implements PlaceService {
         if (placeDb.isPresent()) {
             placeRepository.delete(placeDb.get());
         } else {
-            throw new IllegalStateException("Kayıt silinmedi");
+            throw new IllegalStateException("Kayıt silinemedi.");
         }
     }
 
