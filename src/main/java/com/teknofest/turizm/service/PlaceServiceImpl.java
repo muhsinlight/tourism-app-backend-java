@@ -19,9 +19,6 @@ public class PlaceServiceImpl implements PlaceService {
 
     @Override
     public Place savePlace(Place place) {
-        if(place.getIsApproved()==null){
-            place.setIsApproved(false);
-        }
         return placeRepository.save(place);
     }
 
@@ -41,7 +38,6 @@ public class PlaceServiceImpl implements PlaceService {
             dbPlace.setLatitude(uPlace.getLatitude());
             dbPlace.setLongitude(uPlace.getLongitude());
 
-            dbPlace.setIsApproved(false);
             return placeRepository.save(dbPlace);
         }
     }
@@ -52,7 +48,6 @@ public class PlaceServiceImpl implements PlaceService {
         if (placeDb.isPresent()) {
             placeRepository.delete(placeDb.get());
         } else {
-            throw new ResourceNotFoundException("Kayıt silinemedi.");
         }
     }
 
