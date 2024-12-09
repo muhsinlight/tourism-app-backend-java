@@ -48,6 +48,7 @@ public class PlaceServiceImpl implements PlaceService {
         if (placeDb.isPresent()) {
             placeRepository.delete(placeDb.get());
         } else {
+            throw new ResourceNotFoundException("ID:" + id + " ile eşleşen kayıt bulunamadı.");
         }
     }
 
