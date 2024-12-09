@@ -56,4 +56,8 @@ public class PlaceServiceImpl implements PlaceService {
     public List<Place> searchByCityOrRegionOrAddress(String query) {
         return placeRepository.searchByCityOrRegionOrAddress(query);
     }
+    @Override
+    public List<Place> findAllApprovedPlaces() {
+        return placeRepository.findAllApprovedPlaces();
+    }
 }
