@@ -48,7 +48,7 @@ public class PlaceServiceImpl implements PlaceService {
         if (placeDb.isPresent()) {
             placeRepository.delete(placeDb.get());
         } else {
-            throw new IllegalStateException("Kayıt silinemedi.");
+            throw new ResourceNotFoundException("ID:" + id + " ile eşleşen kayıt bulunamadı.");
         }
     }
 
