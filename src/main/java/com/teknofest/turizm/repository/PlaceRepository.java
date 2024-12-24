@@ -1,7 +1,9 @@
 package com.teknofest.turizm.repository;
 
 import com.teknofest.turizm.model.Place;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +18,14 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
             "LOWER(p.address) LIKE LOWER(CONCAT('%', :query, '%'))")
     List<Place> searchByCityOrRegionOrAddress(String query);
 
-    @Query("SELECT p FROM Place p WHERE p.isApproved = false")
+    @Query("SELECT p FROM Place p WHERE p.isApproved = true")
     List<Place> findAllApprovedPlaces();
+
+    @Query("SELECT p FROM Place p WHERE p.isApproved = false")
+    List<Place> findAllUnapprovedPlaces();
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE Place p SET p.isApproved = true WHERE p.id = :id")
+    int approvePlace(Long id);
 }
