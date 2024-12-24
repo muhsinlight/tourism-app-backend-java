@@ -61,4 +61,18 @@ public class PlaceServiceImpl implements PlaceService {
     public List<Place> findAllApprovedPlaces() {
        return placeRepository.findAllApprovedPlaces();
     }
+
+    @Override
+    public List<Place> findAllUnapprovedPlaces() {
+        return placeRepository.findAllUnapprovedPlaces();
+    }
+
+    @Override
+    public boolean approvePlace(Long id) {
+        int result = placeRepository.approvePlace(id);
+        if (result < 0) {
+            throw new RuntimeException("İlgili yer bulunamadı veya zaten onaylanmış.");
+        }
+        return true;
+    }
 }

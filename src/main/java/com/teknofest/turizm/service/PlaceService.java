@@ -13,7 +13,6 @@ public interface PlaceService {
      void  deletePlace(Long id);
      List<Place> searchByCityOrRegionOrAddress(String query);
      List<Place> findAllApprovedPlaces();
-
-
-
+     List<Place> findAllUnapprovedPlaces();
+     boolean approvePlace(Long id);
 }

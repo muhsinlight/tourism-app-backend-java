@@ -82,8 +82,7 @@ public class  PlaceController {
                 .build();
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
-    @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/false")
+    @GetMapping("/findAll")
     public ResponseEntity<ApiResponse<List<Place>>> findAllApprovedPlaces() {
         var result = placeService.findAllApprovedPlaces();
         var response = new ApiResponse.Builder<List<Place>>()
@@ -94,6 +93,29 @@ public class  PlaceController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/unapprovedPlaces")
+    public ResponseEntity<ApiResponse<List<Place>>> findAllUnapprovedPlaces() {
+    var result = placeService.findAllUnapprovedPlaces();
+        var response = new ApiResponse.Builder<List<Place>>()
+                .success(true)
+                .message("Kayıtlar getirildi.")
+                .data(result)
+                .build();
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/approve/{id}")
+    public ResponseEntity<ApiResponse<Place>> approvePlace(@PathVariable Long id) {
+        var result = placeService.approvePlace(id);
+        var response = new ApiResponse.Builder<Place>()
+               .success(true)
+               .message("Onaylandı.")
+               .data(null)
+               .build();
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
 }
 
 
