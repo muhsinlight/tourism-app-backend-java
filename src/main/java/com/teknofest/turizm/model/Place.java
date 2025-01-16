@@ -1,16 +1,6 @@
 package com.teknofest.turizm.model;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
-import java.util.ArrayList;
-import java.util.List;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "places")
@@ -40,11 +30,15 @@ public class Place {
     private String imageUrl;
     @Column
     private Float rating;
+
+    @Enumerated(EnumType.STRING)
+    private ZoomLevel zoomLevel;
+
     public Place() {
     }
 
 
-    public Place(Long id, String name, String city, String address, String region, Double latitude, Double longitude, Boolean isApproved, String type, String description, Float rating, String imageUrl) {
+    public Place(Long id, String name, String city, String address, String region, Double latitude, Double longitude, Boolean isApproved, String type, String description, Float rating, String imageUrl, ZoomLevel zoomLevel) {
         this.id = id;
         this.name = name;
         this.city = city;
@@ -57,7 +51,7 @@ public class Place {
         this.description = description;
         this.rating = rating;
         this.imageUrl = imageUrl;
-
+        this.zoomLevel = zoomLevel;
     }
 
     // Getter and Setter methods
@@ -157,5 +151,12 @@ public class Place {
         this.rating = rating;
     }
 
+    public ZoomLevel getZoomLevel() {
+        return zoomLevel;
+    }
+
+    public void setZoomLevel(ZoomLevel zoomLevel) {
+        this.zoomLevel = zoomLevel;
+    }
 }
 

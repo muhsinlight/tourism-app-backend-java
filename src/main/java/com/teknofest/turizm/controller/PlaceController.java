@@ -1,6 +1,7 @@
 package com.teknofest.turizm.controller;
 
 import com.teknofest.turizm.model.Place;
+import com.teknofest.turizm.model.ZoomLevel;
 import com.teknofest.turizm.response.ApiResponse;
 import com.teknofest.turizm.response.AuthenticationResponse;
 import com.teknofest.turizm.service.PlaceService;
@@ -114,6 +115,32 @@ public class  PlaceController {
                .message("Onaylandı.")
                .data(null)
                .build();
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    /**
+     * Retrieves places based on the specified zoom level.
+     * <p>
+     * The zoom level determines which places are included:
+     * <ul>
+     *   <li>HIGH: Includes all levels (HIGH, MEDIUM, LOW, VERY_LOW).</li>
+     *   <li>MEDIUM: Includes MEDIUM, LOW, and VERY_LOW.</li>
+     *   <li>LOW: Includes LOW and VERY_LOW.</li>
+     *   <li>VERY_LOW: Includes only VERY_LOW.</li>
+     * </ul>
+     *
+     * @param zoomLevel the zoom level to filter places by
+     * @return a response containing the list of places matching the zoom level
+     */
+    @GetMapping("/findByZoomLevel")
+    public ResponseEntity<ApiResponse<List<Place>>> findPlacesByZoomLevel(@RequestParam int zoomLevel) {
+        ZoomLevel level = ZoomLevel.fromLevel(zoomLevel);
+        var result = placeService.findPlacesByZoomLevel(level);
+        var response = new ApiResponse.Builder<List<Place>>()
+                .success(true)
+                .message("Kayıtlar getirildi.")
+                .data(result)
+                .build();
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }
