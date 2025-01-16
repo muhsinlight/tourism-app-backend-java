@@ -4,10 +4,12 @@ import com.teknofest.turizm.model.Place;
 import com.teknofest.turizm.model.ZoomLevel;
 import com.teknofest.turizm.repository.PlaceRepository;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
+@Profile("test")
 @Component
 public class MockDataLoader implements CommandLineRunner {
 
