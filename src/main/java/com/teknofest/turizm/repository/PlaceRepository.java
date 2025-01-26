@@ -16,6 +16,7 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
     @Query("SELECT p FROM Place p WHERE " +
             "LOWER(p.city) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
             "LOWER(p.region) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
+            "LOWER(p.name) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
             "LOWER(p.address) LIKE LOWER(CONCAT('%', :query, '%'))")
     List<Place> searchByCityOrRegionOrAddress(String query);
 
