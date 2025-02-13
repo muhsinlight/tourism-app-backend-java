@@ -30,15 +30,15 @@ public class Place {
     private String imageUrl;
     @Column
     private Float rating;
-
     @Enumerated(EnumType.STRING)
     private ZoomLevel zoomLevel;
-
+    @Column(name = "user_has_visited")
+    private Boolean userHasVisited;
     public Place() {
     }
 
 
-    public Place(Long id, String name, String city, String address, String region, Double latitude, Double longitude, Boolean isApproved, String type, String description, Float rating, String imageUrl, ZoomLevel zoomLevel) {
+    public Place(Long id, String name, String city, String address, String region, Double latitude, Double longitude, Boolean isApproved, String type, String description, Float rating, String imageUrl, ZoomLevel zoomLevel,Boolean userHasVisited) {
         this.id = id;
         this.name = name;
         this.city = city;
@@ -52,6 +52,7 @@ public class Place {
         this.rating = rating;
         this.imageUrl = imageUrl;
         this.zoomLevel = zoomLevel;
+        this.userHasVisited = userHasVisited;
     }
 
     // Getter and Setter methods
@@ -157,6 +158,13 @@ public class Place {
 
     public void setZoomLevel(ZoomLevel zoomLevel) {
         this.zoomLevel = zoomLevel;
+    }
+    public Boolean getUserHasVisited() {
+        return userHasVisited;
+    }
+
+    public void setUserHasVisited(Boolean userHasVisited) {
+        this.userHasVisited = userHasVisited;
     }
 }
 
