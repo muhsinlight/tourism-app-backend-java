@@ -6,6 +6,7 @@ import com.teknofest.turizm.model.User;
 import com.teknofest.turizm.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import java.util.Optional;
 
 @Service
@@ -16,6 +17,7 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
+
     private final UserRepository userRepository;
 
     @Override
@@ -27,15 +29,12 @@ public class UserServiceImpl implements UserService {
     public User findByUserName(String userName) {
         return userRepository.findByUsername(userName).orElseThrow();
     }
+
     @Override
     public Optional<User> findUserById(Long id) {
         return userRepository.findById(id);
     }
 
-    @Override
-    public User save(User user) {
-        return userRepository.save(user);
-    }
 
     @Override
     public User update(Long id, User user) {
@@ -50,28 +49,12 @@ public class UserServiceImpl implements UserService {
         }
         throw new ResourceNotFoundException("Kayıt bulunamadı.");
     }
+
     @Override
     public void delete(Long id) {
         userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Kayıt bulunamadı."));
         userRepository.deleteById(id);
-    }
-
-    @Override
-    public UserPasswordDto changePassword(Long id, UserPasswordDto userPasswordDto) {
-        Optional<User> userOptional = userRepository.findById(id);
-        if (userOptional.isEmpty()) {
-            throw new ResourceNotFoundException("Kullanıcı bulunamadı.");
-        }
-        User user = userOptional.get();
-        if (!passwordEncoder.matches(userPasswordDto.oldPassword(), user.getPassword())) {
-            throw new IllegalArgumentException("Mevcut şifre yanlış!");
-        }
-
-        user.setPassword(passwordEncoder.encode(userPasswordDto.newPassword()));
-        userRepository.save(user);
-
-        return new UserPasswordDto(userPasswordDto.oldPassword(), "Şifre başarıyla değiştirildi.");
     }
 
 }
