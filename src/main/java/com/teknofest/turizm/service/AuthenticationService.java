@@ -23,22 +23,23 @@ public class AuthenticationService {
         this.jwtService = jwtService;
         this.authenticationManager = authenticationManager;
     }
+
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-        public AuthenticationResponse register(RegisterRequest request) {
-            User user = new User();
-            user.setFirstName(request.firstName());
-            user.setLastName(request.lastName());
-            user.setEmail(request.email());
-            user.setPassword(passwordEncoder.encode(request.password()));
-            user.setRole(Role.USER);
-            userRepository.save(user);
-            var jwtToken = jwtService.generateToken(user);
-            return new AuthenticationResponse(jwtToken, user.getRole().name());
-        }
+    public AuthenticationResponse register(RegisterRequest request) {
+        User user = new User();
+        user.setFirstName(request.firstName());
+        user.setLastName(request.lastName());
+        user.setEmail(request.email());
+        user.setPassword(passwordEncoder.encode(request.password()));
+        user.setRole(Role.USER);
+        userRepository.save(user);
+        var jwtToken = jwtService.generateToken(user);
+        return new AuthenticationResponse(jwtToken, user.getRole().name());
+    }
 
     public AuthenticationResponse login(AuthenticationRequest request) {
         authenticationManager.authenticate(
@@ -51,6 +52,7 @@ public class AuthenticationService {
         var jwtToken = jwtService.generateToken(user);
         return new AuthenticationResponse(jwtToken, user.getRole().name());
     }
+
     public void changePassword(Long userId, UserPasswordDto userPasswordDto) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Kullanıcı bulunamadı"));

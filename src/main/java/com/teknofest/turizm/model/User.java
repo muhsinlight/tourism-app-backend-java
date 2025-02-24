@@ -41,7 +41,7 @@ public class User extends AuditAll<String> implements UserDetails {
     private String lastName;
     @Column(unique = true, nullable = false)
     private String username;
-    @Column(unique = true, nullable = false,updatable = false)
+    @Column(unique = true, nullable = false, updatable = false)
     private String email;
     @Column(nullable = false)
     private String password;
@@ -57,10 +57,12 @@ public class User extends AuditAll<String> implements UserDetails {
     private String location;
     @ElementCollection
     private List<String> interests;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
     }
+
     public String getPassword() {
         return password;
     }
@@ -118,8 +120,9 @@ public class User extends AuditAll<String> implements UserDetails {
     }
 
     public String getEmail() {
-        return email; // Sadece get metodu bırakıldı, set metodu yok!
+        return email;
     }
+
     public void setEmail(String email) {
         this.email = email;
     }

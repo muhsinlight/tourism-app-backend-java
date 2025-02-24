@@ -21,7 +21,7 @@ public class JwtService {
 
     private static final String SECRET_KEY = generateSecretKey();
 
-    private static String generateSecretKey(){
+    private static String generateSecretKey() {
         SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
         return Encoders.BASE64.encode(key.getEncoded());
     }
@@ -40,6 +40,7 @@ public class JwtService {
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
+
     public String generateToken(UserDetails userDetails) {
         return generateToken(new HashMap<>(), userDetails);
     }
@@ -61,6 +62,7 @@ public class JwtService {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
+
     private Claims extractAllClaims(String token) {
         return Jwts
                 .parserBuilder()

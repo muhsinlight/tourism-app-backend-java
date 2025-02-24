@@ -1,4 +1,5 @@
 package com.teknofest.turizm.service;
+
 import com.teknofest.turizm.exception.ResourceNotFoundException;
 import com.teknofest.turizm.model.Event;
 import com.teknofest.turizm.model.Place;
@@ -9,8 +10,10 @@ import com.teknofest.turizm.repository.UserRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
+
 @Service
 public class EventServiceImpl implements EventService {
 
@@ -23,6 +26,7 @@ public class EventServiceImpl implements EventService {
         this.userRepository = userRepository;
         this.placeRepository = placeRepository;
     }
+
     @Override
     public Event createEvent(Event event) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -36,11 +40,13 @@ public class EventServiceImpl implements EventService {
         event.setPlace(place);
         return eventRepository.save(event);
     }
+
     @Override
     public Event getEventById(int id) {
         return eventRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("ID:" + id + " ile eşleşen kayıt bulunamadı."));
     }
+
     @Override
     public Event updateEvent(Event updatedEvent, int id) {
         Event dbEvent = eventRepository.findById(id)
@@ -51,6 +57,7 @@ public class EventServiceImpl implements EventService {
 
         return eventRepository.save(dbEvent);
     }
+
     @Override
     public void deleteEvent(int id) {
         Optional<Event> event = eventRepository.findById(id);
@@ -60,6 +67,7 @@ public class EventServiceImpl implements EventService {
             throw new ResourceNotFoundException("ID:" + id + " ile eşleşen kayıt bulunamadı.");
         }
     }
+
     @Override
     public List<Event> findByPlaceId(Long place) {
         return eventRepository.findByPlaceId(place);

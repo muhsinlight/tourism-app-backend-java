@@ -39,7 +39,7 @@ public class Event extends AuditAll<String> {
     @Column(name = "end_time")
     private LocalDateTime endTime;
 
-    public Event(Integer id, User user, String title, String description, Location location, LocalDateTime startTime, LocalDateTime endTime,Place place) {
+    public Event(Integer id, User user, String title, String description, Location location, LocalDateTime startTime, LocalDateTime endTime, Place place) {
         this.id = id;
         this.user = user;
         this.title = title;

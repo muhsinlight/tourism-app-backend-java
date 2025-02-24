@@ -33,8 +33,7 @@ public class PlaceServiceImpl implements PlaceService {
 
     @Override
     public Place updatePlace(Long id, Place uPlace) {
-        Place dbPlace = placeRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("ID:" + id + " ile eşleşen kayıt bulunamadı."));
+        Place dbPlace = placeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("ID:" + id + " ile eşleşen kayıt bulunamadı."));
         {
             dbPlace.setName(uPlace.getName());
             dbPlace.setDescription(uPlace.getDescription());
@@ -63,7 +62,7 @@ public class PlaceServiceImpl implements PlaceService {
 
     @Override
     public List<Place> findAllApprovedPlaces() {
-       return placeRepository.findAllApprovedPlaces();
+        return placeRepository.findAllApprovedPlaces();
     }
 
     @Override
@@ -96,13 +95,12 @@ public class PlaceServiceImpl implements PlaceService {
      */
     public List<Place> findPlacesByZoomLevel(ZoomLevel zoomLevel) {
         List<ZoomLevel> levelsToInclude = getZoomLevelsToInclude(zoomLevel);
-        return placeRepository.findAll().stream()
-                .filter(place -> levelsToInclude.contains(place.getZoomLevel()))
-                .collect(Collectors.toList());
+        return placeRepository.findAll().stream().filter(place -> levelsToInclude.contains(place.getZoomLevel())).collect(Collectors.toList());
     }
 
     /**
      * Returns the hierarchical ZoomLevel list
+     *
      * @param zoomLevel
      * @return the hierarchical ZoomLevel list
      */
