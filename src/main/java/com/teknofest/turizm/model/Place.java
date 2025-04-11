@@ -24,7 +24,7 @@ public class Place {
     private Boolean isApproved; // default: false
     @Column
     private String type;
-    @Column
+    @Column(length = 500)
     private String description;
     @Column(name = "image_url")
     private String imageUrl;
